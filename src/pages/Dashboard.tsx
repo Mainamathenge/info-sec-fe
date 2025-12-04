@@ -27,7 +27,7 @@ export const Dashboard = () => {
 
     const filteredPackages = packages.filter(pkg =>
         pkg.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        pkg.packageId.toLowerCase().includes(searchTerm.toLowerCase())
+        pkg.package_id.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -56,7 +56,7 @@ export const Dashboard = () => {
                             <div>
                                 <p className="text-sm text-gray-600">Total Downloads</p>
                                 <p className="text-2xl font-bold text-gray-900">
-                                    {packages.reduce((sum, pkg) => sum + (pkg.totalDownloads || 0), 0)}
+                                    0
                                 </p>
                             </div>
                             <TrendingUp className="h-10 w-10 text-green-600" />
@@ -68,7 +68,7 @@ export const Dashboard = () => {
                             <div>
                                 <p className="text-sm text-gray-600">Total Versions</p>
                                 <p className="text-2xl font-bold text-gray-900">
-                                    {packages.reduce((sum, pkg) => sum + (pkg.totalVersions || 0), 0)}
+                                    0
                                 </p>
                             </div>
                             <Package className="h-10 w-10 text-blue-600" />
@@ -104,14 +104,14 @@ export const Dashboard = () => {
                     ) : (
                         filteredPackages.map((pkg) => (
                             <Link
-                                key={pkg.packageId}
-                                to={`/package/${pkg.packageId}`}
+                                key={pkg.package_id}
+                                to={`/package/${pkg.package_id}`}
                                 className="card hover:shadow-lg transition-shadow duration-200"
                             >
                                 <div className="flex items-start justify-between mb-3">
                                     <div className="flex-1">
                                         <h3 className="text-lg font-semibold text-gray-900">{pkg.name}</h3>
-                                        <p className="text-sm text-gray-500">{pkg.packageId}</p>
+                                        <p className="text-sm text-gray-500">{pkg.package_id}</p>
                                     </div>
                                     <Package className="h-8 w-8 text-primary-600" />
                                 </div>
@@ -122,10 +122,10 @@ export const Dashboard = () => {
 
                                 <div className="flex items-center justify-between text-sm">
                                     <span className="text-gray-500">
-                                        v{pkg.latestVersion || '1.0.0'}
+                                        v1.0.0
                                     </span>
                                     <span className="text-gray-500">
-                                        {pkg.totalDownloads || 0} downloads
+                                        {pkg.package_id}
                                     </span>
                                 </div>
                             </Link>
