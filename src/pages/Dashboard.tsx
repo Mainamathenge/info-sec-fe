@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import apiClient from '../api/client';
 import type { Package as PackageType } from '../types';
-import { Package, Search, TrendingUp } from 'lucide-react';
+import { Package, TrendingUp } from 'lucide-react';
 
 export const Dashboard = () => {
     const [packages, setPackages] = useState<PackageType[]>([]);
     const [loading, setLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState('');
+
 
     useEffect(() => {
         fetchPackages();
@@ -25,10 +25,7 @@ export const Dashboard = () => {
         }
     };
 
-    const filteredPackages = packages.filter(pkg =>
-        pkg.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        pkg.package_id.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+
 
     return (
         <Layout>
@@ -76,19 +73,7 @@ export const Dashboard = () => {
                     </div>
                 </div>
 
-                {/* Search Bar */}
-                <div className="card">
-                    <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                        <input
-                            type="text"
-                            placeholder="Search packages..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                        />
-                    </div>
-                </div>
+
 
                 {/* Package List */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -96,13 +81,13 @@ export const Dashboard = () => {
                         <div className="col-span-full text-center py-12">
                             <p className="text-gray-500">Loading packages...</p>
                         </div>
-                    ) : filteredPackages.length === 0 ? (
+                    ) : packages.length === 0 ? (
                         <div className="col-span-full text-center py-12">
                             <Package className="h-16 w-16 text-gray-300 mx-auto mb-4" />
                             <p className="text-gray-500">No packages found</p>
                         </div>
                     ) : (
-                        filteredPackages.map((pkg) => (
+                        packages.map((pkg) => (
                             <Link
                                 key={pkg.package_id}
                                 to={`/package/${pkg.package_id}`}
